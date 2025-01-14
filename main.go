@@ -46,10 +46,10 @@ func main() {
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt)
 
-	stop := make(chan int)
+	stop := make(chan struct{})
 	go func() {
 		wg.Wait()
-		stop <- 1
+		stop <- struct{}{}
 	}()
 
 	for {
